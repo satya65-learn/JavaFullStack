@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>      
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.container {
+    width: 100%;
+    max-width: 480px;
+}
+.form-box {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+.form-box > p {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+.input-group {
+    margin-bottom: 18px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+.gender-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.gender-options label {
+    font-weight: normal;
+}
+.gender-options input {
+    margin-right: 5px;
+}
+button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #667eea;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover {
+    background: #5568d8;
+}
+#message {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+         <h1>Registration form</h1>
+            <form id="registrationForm">
+                <div class="input-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname"
+                           placeholder="Enter your full name"
+                           required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email"
+                           placeholder="Enter your email"
+                           required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone"
+                           placeholder="Enter 10-digit phone number"
+                           maxlength="10"
+                           required>
+                </div>
+                <div class="input-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" required>
+                </div>
+                <div class="input-group">
+                    <label>Gender</label>
+                    <div class="gender-options">
+                        <label>
+                            <input type="radio" name="gender"
+                                   value="Male" required>
+                            Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender"
+                                   value="Female">
+                            Female
+                        </label>
+                        <label>
+                            <input type="radio" name="gender"
+                                   value="Other">
+                            Other
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password"
+                           placeholder="Create a password"
+                           required>
+                </div>
+                <p id="message"></p>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <script >
+const form = document.getElementById("registrationForm");
+const message = document.getElementById("message");
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const fullname = document.getElementById("fullname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const dob = document.getElementById("dob").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+    message.style.color = "red";
+    message.textContent = "";
+    if (fullname === "" || email === "" || phone === "" ||
+        dob === "" || password === "" || confirmPassword === "") {
+        message.textContent = "Please fill in all fields.";
+        return;
+    }
+    if (!/^[0-9]{10}$/.test(phone)) {
+        message.textContent =
+            "Please enter a valid 10-digit phone number.";
+        return;
+    }
+    if (password.length < 6) {
+        message.textContent =
+            "Password must contain at least 6 characters.";
+        return;
+    }
+    if (password !== confirmPassword) {
+        message.textContent = "Passwords do not match.";
+        return;
+    }
+    message.style.color = "green";
+    message.textContent = "Registration successful!";
+    form.reset();
+});
+    </script>
+</body>
+</html>
